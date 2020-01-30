@@ -9,13 +9,21 @@
 import UIKit
 
 class MainView: UIView {
-
+    // MARK: mainColorView
     public lazy var mainColorView: UIView = {
         let view = UIView()
         view.backgroundColor = .darkGray
         return view
     }()
     
+    //MARK: Buttons
+    public lazy var beginGameButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Begin Game", for: .normal)
+        button.backgroundColor = .black
+        
+        return button
+    }()
     public lazy var leftButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .red
@@ -31,7 +39,21 @@ class MainView: UIView {
         button.backgroundColor = .blue
         return button
     }()
-    
+    //MARK: Labels
+    public lazy var currentScoreLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Current Score: 0"
+        label.numberOfLines = 2
+        label.textAlignment = .center
+        return label
+    }()
+    public lazy var highScoreLabel: UILabel = {
+        let label = UILabel()
+        label.text = "High Score: 0"
+        label.textAlignment = .center
+        return label
+    }()
+    //MARK: init
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
@@ -45,18 +67,21 @@ class MainView: UIView {
         setLeftButtonConstraints()
         setMiddleButtonConstraints()
         setRightButtonConstraints()
+        setBeginGameButton()
+        setCurrentScoreConstraints()
+        setHighScoreConstraints()
     }
     
     private func setMainColorViewConstraints() {
         addSubview(mainColorView)
         mainColorView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-        
+            
             mainColorView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
             mainColorView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
             mainColorView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
             mainColorView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4)
-                ])
+        ])
     }
     private func setLeftButtonConstraints() {
         addSubview(leftButton)
@@ -82,11 +107,40 @@ class MainView: UIView {
         addSubview(rightButton)
         rightButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-        
+            
             rightButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
             rightButton.topAnchor.constraint(equalTo: mainColorView.bottomAnchor, constant: 20),
             rightButton.heightAnchor.constraint(equalToConstant: 50),
             rightButton.widthAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    private func setBeginGameButton() {
+        addSubview(beginGameButton)
+        beginGameButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+        
+            beginGameButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            beginGameButton.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor)
+        
+        ])
+    }
+    private func setCurrentScoreConstraints() {
+        addSubview(currentScoreLabel)
+        currentScoreLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+        
+            currentScoreLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -60),
+            currentScoreLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor)
+        
+        ])
+    }
+    private func setHighScoreConstraints() {
+        addSubview(highScoreLabel)
+        highScoreLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+        
+            highScoreLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            highScoreLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -40)
         ])
     }
 }
